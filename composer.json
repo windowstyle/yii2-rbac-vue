@@ -1,0 +1,21 @@
+{
+    "name": "wyanlord/yii2-rbac-vue",
+    "description": "Yii2 Rbac And Vue",
+    "license": "MIT",
+    "keywords": ["yii2","rbac","vue"],
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "yan.wang",
+            "email": "381433852@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "wyvue\\": "src/"
+        }
+    }
+}
