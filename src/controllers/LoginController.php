@@ -42,29 +42,27 @@ class LoginController extends BaseController
         return ['code' => 1000,'data' => ['token' => $loginUser->getAuthKey()]];
     }
 
-    public function actionRegisterDefault($username,$password,$email){
-        if($this->get_query('key') != 123) die('Error Request!');
+    public function actionRegisterDefault(){
+        if(UserModel::findOne(['username' => 'admin'])) die('Admin Exists!');
 
         $user = new UserModel();
-        $user->username = $username;
+        $user->username = 'admin';
         $user->generateAuthKey();
-        $user->setPassword($password);
-        $user->email = $email;
+        $user->setPassword('admin');
+        $user->email = 'admin@admin.com';
         $user->save();
 
         // 创建superAdmin角色，并赋给admin账号
-        if($username == 'admin'){
-            $authManager = Yii::$app->authManager;
+        $authManager = Yii::$app->authManager;
 
-            $authItem = new AuthItem();
-            $authItem->name = 'superadmin';
-            $authItem->type = Item::TYPE_ROLE;
-            $authItem->description = '超级管理员';
+        $authItem = new AuthItem();
+        $authItem->name = 'superadmin';
+        $authItem->type = Item::TYPE_ROLE;
+        $authItem->description = '超级管理员';
 
-            $authItem->save();
+        $authItem->save();
 
-            $authManager->assign($authManager->getRole('superadmin'),$user->id);
-        }
+        $authManager->assign($authManager->getRole('superadmin'),$user->id);
 
         die('添加成功');
     }

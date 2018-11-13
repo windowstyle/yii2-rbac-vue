@@ -103,5 +103,9 @@ npm install
 npm run build:prod
 ```
 
+5、创建管理员账号
+
+访问/wyvue/login/register-default路由来创建管理员admin，如果admin已经创建，则不会再创建
+
 
 
