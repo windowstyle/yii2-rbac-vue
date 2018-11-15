@@ -8,7 +8,6 @@ import Layout from '@/views/layout/Layout'
 
 /* Router Modules */
 import systemRouter  from './modules/system'
-import gameRouter  from './modules/game'
 
 export const constantRouterMap = [
 	{
@@ -59,6 +58,5 @@ export default new Router({
 
 export const asyncRouterMap = [
 	systemRouter,
-    gameRouter,
 	{path: '*', redirect: '/404', hidden: true}
 ]

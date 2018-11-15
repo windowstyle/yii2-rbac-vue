@@ -1,4 +1,24 @@
-### Yii载入wyvue
+### Yii2载入wyvue
+
+注：修改composer.json，在文件最后添加下面的配置
+1是使用国内的composer资源。
+2是欺骗composer，方便我们快速更新yii2框架vendor包
+```
+"repositories": [
+    {
+        "type": "composer",
+        "url": "https://packagist.phpcomposer.com"
+    }
+],
+"provide": {
+    "bower-asset/jquery": "*",
+    "bower-asset/bootstrap": "*",
+    "bower-asset/inputmask": "*",
+    "bower-asset/punycode": "*",
+    "bower-asset/typeahead.js": "*",
+    "bower-asset/yii2-pjax": "*"
+}
+```
 
 1、创建用户表
 ```
@@ -65,17 +85,17 @@ php yii migrate --migrationPath=@yii/rbac/migrations
 
 4、vueview的相关配置
 
-+ 从vendor包wyanlord中拷贝vueview文件夹到backend的根目录下
++ 从vendor包wyanlord中拷贝vueview文件夹到项目的根目录下
 
 + build配置
 ```
 // vueview/config目录下的index.js
 build: {
     // 设置首页的路径，必须定位到backend/web的目录下
-    index: path.resolve(__dirname, '../../../backend/web/index.html'),
+    index: path.resolve(__dirname, '../../backend/web/index.html'),
 
     // 设置资源的根路径
-    assetsRoot: path.resolve(__dirname, '../../../backend/web/vuedist'),
+    assetsRoot: path.resolve(__dirname, '../../backend/web/vuedist'),
     // 设置子路径
     assetsSubDirectory: 'static',
     // 设置公共路径
@@ -105,7 +125,8 @@ npm run build:prod
 
 5、创建管理员账号
 
-访问/wyvue/login/register-default路由来创建管理员admin，如果admin已经创建，则不会再创建
+访问接口API域名地址http://xxxapi.com/wyvue/login/register-default路由来创建管理员admin，同时会创建对应的角色
 
+默认为admin/admin123，权限为superadmin
 
 
