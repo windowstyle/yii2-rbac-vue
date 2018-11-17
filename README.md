@@ -57,7 +57,7 @@ php yii migrate --migrationPath=@yii/rbac/migrations
 2、后台backend的main.php配置文件如下
 > wyvue\Module模块名必须定义为wyvue，否则需要修改前端固定的Api请求地址
 
-```
+```php
 'modules' => ['wyvue' => 'wyvue\Module'],
 'components' => [
     'request' => [
