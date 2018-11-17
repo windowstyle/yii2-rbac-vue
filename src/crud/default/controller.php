@@ -19,7 +19,7 @@ namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>
 use Yii;
 use <?= ltrim($generator->modelClass, '\\') ?>;
 use wyvue\models\RespCode;
-use wyvue\controllers\BaseController;
+use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.

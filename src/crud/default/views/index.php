@@ -2,12 +2,9 @@
 
 /* @var $generator wyvue\crud\Generator */
 
-$modelClass = $generator->modelClass;
 $controllerName = $generator->getControllerID();
 
-echo "<?php\n";
 ?>
-
 <template>
     <div class="app-container">
         <!-- 搜索栏 -->
@@ -60,15 +57,15 @@ foreach ($generator->getColumnNames() as $attribute) {
 
         <!-- 编辑框 -->
 
-        <el-dialog :title="formDialogType == 'create' ? $t('<?=$modelClass ?>.create<?=$modelClass ?>') : $t('<?=$modelClass ?>.update<?=$modelClass ?>')" :visible.sync="formDialogVisible">
+        <el-dialog :title="formDialogType == 'create' ? $t('<?=$controllerName ?>.create<?=ucfirst($controllerName) ?>') : $t('<?=$controllerName ?>.update<?=ucfirst($controllerName) ?>')" :visible.sync="formDialogVisible">
             <el-form ref="formDialogModel" v-loading="formDialogLoading" :model="formDialogModel" :rules="formDialogRule" status-icon>
 <?php
 $count = 0;
 foreach ($generator->getColumnNames() as $attribute) {
     if (++$count < 6) {
-        echo "                " . $generator->generateEditField($attribute) . "\n\n";
+        echo "                " . $generator->generateDialogField($attribute) . "\n\n";
     } else {
-        echo "                <!-- " . $generator->generateEditField($attribute) . " -->\n\n";
+        echo "                <!-- " . $generator->generateDialogField($attribute) . " -->\n\n";
     }
 }
 ?>
@@ -85,7 +82,7 @@ foreach ($generator->getColumnNames() as $attribute) {
     import request from '@/utils/request'
 
     export default {
-        name: '<?=$modelClass?>', //Todo: 修改名称
+        name: '<?=$controllerName ?>', //Todo: 修改名称
         data() {
             return {
                 // 状态相关

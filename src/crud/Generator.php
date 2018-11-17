@@ -5,14 +5,16 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace wyvue\curd;
+namespace wyvue\crud;
 
 use Yii;
 use yii\db\Schema;
+use yii\gii\CodeFile;
 use yii\gii\generators\crud\Generator AS YiiGenerator;
 
 class Generator extends YiiGenerator
 {
+    public $baseControllerClass = 'wyvue\controllers\BaseController';
     /**
      * {@inheritdoc}
      */
@@ -76,7 +78,7 @@ class Generator extends YiiGenerator
      */
     public function generateSearchField($attribute)
     {
-        return "<el-input :placeholder=\"\$t('".$this->modelClass.".".$attribute."')\" v-model=\"searchModel.".$attribute."\" style=\"width: 100px;\" class=\"filter-item\"/>";
+        return "<el-input :placeholder=\"\$t('".$this->controllerID.".".$attribute."')\" v-model=\"searchModel.".$attribute."\" style=\"width: 100px;\" class=\"filter-item\"/>";
     }
 
 
@@ -87,7 +89,7 @@ class Generator extends YiiGenerator
      */
     public function generateListField($attribute)
     {
-        return "<el-table-column :label=\"\$t('".$this->modelClass.".".$attribute."')\" prop=\"".$attribute."\" sortable=\"custom\" align=\"center\">
+        return "<el-table-column :label=\"\$t('".$this->controllerID.".".$attribute."')\" prop=\"".$attribute."\" sortable=\"custom\" align=\"center\">
                 <template slot-scope=\"props\">
                     <span>{{ props.row.".$attribute." }}</span>
                 </template>
@@ -106,14 +108,26 @@ class Generator extends YiiGenerator
                     <el-input v-model=\"formDialogModel.id\" autocomplete=\"off\" readonly=\"readonly\"></el-input>
                 </el-form-item>";
         }else{
-            return "<el-form-item :label=\"\$t('".$this->modelClass.".".$attribute."')\" label-width=\"100px\" prop=\"".$attribute."\">
+            return "<el-form-item :label=\"\$t('".$this->controllerID.".".$attribute."')\" label-width=\"100px\" prop=\"".$attribute."\">
                     <el-input v-model=\"formDialogModel.".$attribute."\" autocomplete=\"off\"></el-input>
                 </el-form-item>";
         }
     }
 
-    public function getViewPath()
+    /**
+     * {@inheritdoc}
+     */
+    public function generate()
     {
-        return dirname(Yii::getAlias('@backend')) . '/vueview/src/views/';
+        $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
+
+        $viewPath = dirname(Yii::getAlias('@backend')) . '/vueview/src/views';
+
+        $files = [
+            new CodeFile($controllerFile, $this->render('controller.php')),
+            new CodeFile("$viewPath/".$this->controllerID.".vue", $this->render("views/index.php"))
+        ];
+
+        return $files;
     }
 }

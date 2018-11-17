@@ -37,6 +37,14 @@ if (YII_ENV_DEV && strpos($_SERVER['REQUEST_URI'],'/gii') !== false) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'generators' => [
+            'crud' => [
+                'class' => 'wyvue\crud\Generator',
+                'templates' => [
+                    'default' => '@vendor/wyanlord/yii2-rbac-vue/src/crud/default',
+                ]
+            ]
+        ],
     ];
 }
 ```
@@ -148,5 +156,3 @@ npm run build
 > 访问接口API域名地址http://localhost/wyvue/login/register-default路由来创建管理员admin，同时会创建对应的角色
 
 > 默认为admin/admin，权限为superadmin
-
-四、模板生成
