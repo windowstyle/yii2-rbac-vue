@@ -2,6 +2,7 @@
 
 一、下载Yii2框架
 下载地址：https://github.com/yiisoft/yii2-app-advanced/releases
+
 1、修改composer.json，在文件末尾修改repositories为国内源，并忽略前端资源的包，然后`composer install`
 
 ```json
