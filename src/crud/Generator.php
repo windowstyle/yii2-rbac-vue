@@ -14,7 +14,29 @@ use yii\gii\generators\crud\Generator AS YiiGenerator;
 
 class Generator extends YiiGenerator
 {
+    public $modelClass = 'backend\models\*Model';
+    public $controllerClass = 'backend\controllers\*Controller';
     public $baseControllerClass = 'wyvue\controllers\BaseController';
+    public $viewPath = 'vueview\src\views';
+    public $templates = ['default' => '@vendor/wyanlord/yii2-rbac-vue/src/crud/default'];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hints()
+    {
+        return array_merge(parent::hints(), [
+            'modelClass' => 'This is the ActiveRecord class associated with the table that CRUD will be built upon.
+                You should provide a fully qualified class name, e.g., <code>backend\models\Post</code>.',
+            'controllerClass' => 'This is the name of the controller class to be generated. You should
+                provide a fully qualified namespaced class (e.g. <code>backend\controllers\PostController</code>),
+                and class name should be in CamelCase with an uppercase first letter. Make sure the class
+                is using the same namespace as specified by your application\'s controllerNamespace property.',
+            'viewPath' => 'Specify the directory for storing the view scripts for the controller.
+                <code>/vueview/src/views/post</code>. If not set, it will default to <code>/vueview/src/views</code>'
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -115,17 +137,27 @@ class Generator extends YiiGenerator
     }
 
     /**
+     * @return string the controller view path
+     */
+    public function getViewPath()
+    {
+        if (empty($this->viewPath)) {
+            return dirname(Yii::getAlias('@backend')) . '/vueview/src/views';
+        }
+
+        return dirname(Yii::getAlias('@backend')) . '/' . trim(str_replace('\\', '/', $this->viewPath),'/');
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function generate()
     {
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
-        $viewPath = dirname(Yii::getAlias('@backend')) . '/vueview/src/views';
-
         $files = [
             new CodeFile($controllerFile, $this->render('controller.php')),
-            new CodeFile("$viewPath/".$this->controllerID.".vue", $this->render("views/index.php"))
+            new CodeFile($this->getViewPath() . '/' . $this->controllerID . ".vue", $this->render("views/index.php"))
         ];
 
         return $files;
