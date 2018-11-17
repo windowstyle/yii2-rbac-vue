@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace wyvue\crud;
+namespace wyvue\curd;
 
 use Yii;
 use yii\db\Schema;
