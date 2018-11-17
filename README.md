@@ -114,16 +114,16 @@ public function actionIndex()
 三、vueview的相关配置
 
 1、下载nodejs，并设置npm为国内的源
-windows环境的下载地址：http://nodejs.cn/download/
+> windows环境的下载地址：http://nodejs.cn/download/
 ```
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 ```
 
 2、部署vueview
-从vendor包wyanlord中拷贝vueview文件夹到项目的根目录下，与backend处于同一级别
+> 从vendor包wyanlord中拷贝vueview文件夹到项目的根目录下，与backend处于同一级别
 
 3、接口域名配置
-路径为vueview/config目录下的dev.env.js和prod.env.js
+> 路径为vueview/config目录下的dev.env.js和prod.env.js
 ```js
 module.exports = {
     NODE_ENV: '"development"',
@@ -145,8 +145,8 @@ npm run build
 
 5、创建管理员账号
 
-访问接口API域名地址http://localhost/wyvue/login/register-default路由来创建管理员admin，同时会创建对应的角色
+> 访问接口API域名地址http://localhost/wyvue/login/register-default路由来创建管理员admin，同时会创建对应的角色
 
-默认为admin/admin，权限为superadmin
+> 默认为admin/admin，权限为superadmin
 
 
