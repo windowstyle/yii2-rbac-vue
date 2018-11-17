@@ -4,7 +4,7 @@
         <div class="filter-container">
             <el-input :placeholder="$t('system.name')" v-model="searchModel.name" style="width: 200px;" class="filter-item"/>
 
-            <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="OnSearchFilter">{{ $t('table.search') }}</el-button>
+            <el-button class="filter-item" type="primary" icon="el-icon-search" @click="OnSearchFilter">{{ $t('table.search') }}</el-button>
 
             <el-button class="filter-item" style="margin-left: 10px;" type="success" icon="el-icon-circle-plus-outline" @click="OnShowCreateDialog">{{ $t('table.add') }}</el-button>
 
@@ -29,12 +29,12 @@
             </el-table-column>
             <el-table-column :label="$t('table.addtime')" prop="created_at" sortable="custom" align="center">
                 <template slot-scope="props">
-                    <span>{{ props.row.created_at | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+                    <span>{{DateFormat(props.row.created_at,'{y}-{m}-{d} {h}:{i}:{s}') }}</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('table.updatetime')" prop="updated_at" sortable="custom" align="center">
                 <template slot-scope="props">
-                    <span>{{ props.row.updated_at | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+                    <span>{{DateFormat(props.row.updated_at,'{y}-{m}-{d} {h}:{i}:{s}') }}</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('table.actions')" align="center" width="200px">
@@ -99,20 +99,11 @@
 </template>
 
 <script>
-	import {
-		API_FetchRoleList,
-        API_DoRoleSave,
-        API_DoRoleDelete,
-        API_DoRefreshRoutes,
-		API_DoSavePermissions
-	} from '@/api/system/role'
-
-	import waves from '@/directive/waves' // 水波纹指令
-	import { parseTime } from '@/utils'
+    import request from '@/utils/request'
+    import {parseTime} from '@/utils'
 
 	export default {
 		name: 'systemRole',
-		directives: {waves},
 		data() {
 			return {
 				// 搜索相关
@@ -164,7 +155,11 @@
 		methods: {
 			OnSearchList() {
 				this.searchLoading = true
-				API_FetchRoleList(this.searchModel).then(response => {
+                request({
+                    url: '/wyvue/auth/index',
+                    method: 'get',
+                    params: this.searchModel
+                }).then(response => {
 					this.searchList = response.data.items
 					this.searchTotal = parseInt(response.data.total)
 
@@ -209,7 +204,11 @@
 					}
 
 					this.searchLoading = true;
-					API_DoRoleDelete({names}).then(() => {
+                    request({
+                        url: '/wyvue/auth/delete',
+                        method: 'post',
+                        data: names
+                    }).then(() => {
 						this.OnSearchList();
 					}).catch(error => {
 						this.$message.error(error.message);
@@ -248,7 +247,11 @@
 							postdata[k] = this.formDialogModel[k];
 						});
 
-						API_DoRoleSave(postdata).then(response => {
+                        request({
+                            url: '/wyvue/auth/save',
+                            method: 'post',
+                            data: postdata
+                        }).then(response => {
 							this.formDialogVisible = false;
 							this.formDialogLoading = false;
 							this.OnSearchList();
@@ -264,7 +267,10 @@
 			},
 			OnRefreshRoutes() {
 				this.searchLoading = true;
-				API_DoRefreshRoutes().then(() => {
+                request({
+                    url: '/wyvue/auth/refresh-routes',
+                    method: 'get'
+                }).then(() => {
 					this.OnSearchList();
 					this.$message.success('Refresh Success!');
                 }).catch(error => {
@@ -281,7 +287,11 @@
             },
 			OnSubmitPermissionDialog() {
 				this.permissionDialogLoading = true;
-				API_DoSavePermissions(this.permissionDialogModel).then(() => {
+                request({
+                    url: '/wyvue/auth/save-permissions',
+                    method: 'post',
+                    data: this.permissionDialogModel
+                }).then(() => {
 				    this.permissionDialogVisible = false;
 					this.permissionDialogLoading = false;
 					this.OnSearchList();
@@ -290,6 +300,9 @@
 					this.$message.error(error.message);
 					this.permissionDialogLoading = false;
 				});
+            },
+            DateFormat(date) {
+                return parseTime(date,'{y}-{m}-{d} {h}:{i}:{s}')
             }
 		}
 	}

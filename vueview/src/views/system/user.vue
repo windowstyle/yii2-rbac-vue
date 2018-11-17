@@ -10,11 +10,11 @@
                 <el-option v-for="item in userStatusOptions" :key="item.value" :value="item.value" :label="item.label"/>
             </el-select>
 
-            <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="OnSearchFilter">{{ $t('table.search') }}</el-button>
+            <el-button class="filter-item" type="primary" icon="el-icon-search" @click="OnSearchFilter">{{ $t('table.search') }}</el-button>
 
-            <el-button v-waves class="filter-item" type="success" icon="el-icon-circle-plus-outline" @click="OnShowCreateDialog">{{ $t('table.add') }}</el-button>
+            <el-button class="filter-item" type="success" icon="el-icon-circle-plus-outline" @click="OnShowCreateDialog">{{ $t('table.add') }}</el-button>
 
-            <el-button v-waves class="filter-item" type="danger" icon="el-icon-delete" @click="OnSelectRowDelete()">{{ $t('table.batchdelete') }}</el-button>
+            <el-button class="filter-item" type="danger" icon="el-icon-delete" @click="OnSelectRowDelete()">{{ $t('table.batchdelete') }}</el-button>
         </div>
 
         <!-- table展示列表 -->
@@ -48,12 +48,12 @@
             </el-table-column>
             <el-table-column :label="$t('table.addtime')" prop="created_at" sortable="custom" align="center">
                 <template slot-scope="props">
-                    <span>{{ props.row.created_at | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+                    <span>{{DateFormat(props.row.created_at,'{y}-{m}-{d} {h}:{i}:{s}') }}</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('table.updatetime')" prop="updated_at" sortable="custom" align="center">
                 <template slot-scope="props">
-                    <span>{{ props.row.updated_at | parseTime('{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+                    <span>{{DateFormat(props.row.updated_at,'{y}-{m}-{d} {h}:{i}:{s}') }}</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('table.actions')" align="center" width="150px">
@@ -128,18 +128,11 @@
 </template>
 
 <script>
-	import {
-		API_FetchUserList,
-        API_DoUserSave,
-        API_DoUserDelete,
-        API_DoUserSaveRole
-	} from '@/api/system/user'
-	import waves from '@/directive/waves' // 水波纹指令
-	import { parseTime } from '@/utils'
+    import request from '@/utils/request'
+    import {parseTime} from '@/utils'
 
 	export default {
 		name: 'systemUser',
-		directives: {waves},
 		data() {
 			return {
 				// 用户状态相关
@@ -202,7 +195,11 @@
 		methods: {
 			OnSearchList() {
 				this.searchLoading = true
-				API_FetchUserList(this.searchModel).then(response => {
+                request({
+                    url: '/wyvue/user/index',
+                    method: 'get',
+                    params: this.searchModel
+                }).then(response => {
 					this.searchList = response.data.items;
 					this.searchTotal = parseInt(response.data.total);
 
@@ -246,7 +243,11 @@
 					}
 
 					this.searchLoading = true;
-					API_DoUserDelete({ids}).then(() => {
+                    request({
+                        url: '/wyvue/user/delete',
+                        method: 'post',
+                        data: {ids}
+                    }).then(() => {
 						this.OnSearchList();
 					}).catch(error => {
 						this.$message.error(error.message);
@@ -285,7 +286,11 @@
 							postdata[k] = this.formDialogModel[k];
 						});
 
-                        API_DoUserSave(postdata).then(response => {
+                        request({
+                            url: '/wyvue/user/save',
+                            method: 'post',
+                            data: postdata
+                        }).then(response => {
                             this.formDialogVisible = false;
                             this.formDialogLoading = false;
                             this.OnSearchList();
@@ -309,7 +314,11 @@
             },
 			OnSubmitRoleDialog() {
                 this.roleDialogLoading = true;
-				API_DoUserSaveRole(this.roleDialogModel).then(response => {
+                request({
+                    url: '/wyvue/user/save-role',
+                    method: 'post',
+                    data: this.roleDialogModel
+                }).then(response => {
 					this.roleDialogLoading = false;
 					this.roleDialogVisible = false;
 					this.OnSearchList();
@@ -318,6 +327,9 @@
 					this.roleDialogLoading = false;
 					this.$message.error(error.message);
 				});
+            },
+            DateFormat(date) {
+                return parseTime(date,'{y}-{m}-{d} {h}:{i}:{s}')
             }
 		}
 	}

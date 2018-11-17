@@ -28,7 +28,6 @@
 </template>
 
 <script>
-	import {isvalidUsername} from '@/utils/validate'
 	import LangSelect from '@/components/LangSelect'
 
 	export default {
@@ -44,7 +43,7 @@
 					username: [{required: true, trigger: 'blur'}],
 					password: [
 						{required: true, trigger: 'blur'},
-						{type: 'string',min:6, trigger: 'blur'}
+						{type: 'string',min:5, trigger: 'blur'}
                     ]
 				},
 				passwordType: 'password',

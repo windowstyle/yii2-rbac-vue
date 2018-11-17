@@ -1,0 +1,83 @@
+export default {
+    route: {
+        dashboard: 'Dashboard',
+
+        system: 'System',
+        systemUser: 'System User',
+        systemRole: 'System Role',
+    },
+    // system菜单下的view翻译
+    system:{
+        title: 'Demo Backend',
+        logIn: 'Sign In',
+        name: 'Name',
+        username: 'User Name',
+        password: 'Password',
+        email: 'Email',
+        role: 'Role',
+        permission: 'Permission',
+        dispathRole: 'Dispath Role',
+        createUser: 'Create User',
+        updateUser: 'Update User',
+        refreshroutes: 'Refresh Routes',
+        description: 'Description',
+        createrole: 'Create Role',
+        updaterole: 'Update Role',
+        dispathPermission: 'Dispath Permission'
+    },
+    table: {
+        search: 'Search',
+        all: 'All',
+        add: 'Add',
+        name: 'Name',
+        title: 'Title',
+        index: 'Index',
+        url: 'Url',
+        country: 'Country',
+        import: 'Import',
+        export: 'Export',
+        status: 'Status',
+        type: 'Type',
+        display: 'Display',
+        sort: 'Sort',
+        actions: 'Actions',
+        edit: 'Edit',
+        save: 'Save',
+        publish: 'Publish',
+        draft: 'Draft',
+        delete: 'Delete',
+        warning: 'Warning',
+        batchdelete: 'Batch Delete',
+        cancel: 'Cancel',
+        confirm: 'Confirm',
+        addtime: 'Add Time',
+        updatetime: 'Update Time',
+        source: 'Source',
+        target: 'Target',
+        cache_date: 'Cache Date',
+        start_date: 'Start Date',
+        end_date: 'End Date',
+        startenddate: 'Start End',
+        userid: 'User ID',
+        author: 'Author',
+        ratio: 'Ratio'
+    },
+    tips: {
+        comfirmDeleteWarning: 'This will permanently delete,do you want to continue?',
+        comfirmDoThis: 'Are you sure continue?',
+    },
+    navbar: {
+        logOut: 'Log Out',
+        dashboard: 'Dashboard',
+        github: 'Github',
+        screenfull: 'Screenfull',
+        theme: 'Theme',
+        size: 'Global Size'
+    },
+    tagsView: {
+        refresh: 'Refresh',
+        close: 'Close',
+        closeOthers: 'Close Others',
+        closeAll: 'Close All'
+    }
+}
