@@ -96,22 +96,26 @@ class Generator extends YiiGenerator
     }
 
     /**
-     * {@inheritdoc}
+     * Generates code for search
+     * @param string $menuName
+     * @param string $attribute
+     * @return string
      */
-    public function generateSearchField($attribute)
+    public function generateSearchField($menuName,$attribute)
     {
-        return "<el-input :placeholder=\"\$t('".$this->controllerID.".".$attribute."')\" v-model=\"searchModel.".$attribute."\" style=\"width: 100px;\" class=\"filter-item\"/>";
+        return "<el-input :placeholder=\"\$t('".$menuName.".".$attribute."')\" v-model=\"searchModel.".$attribute."\" style=\"width: 100px;\" class=\"filter-item\"/>";
     }
 
 
     /**
      * Generates code for table colume
+     * @param string $menuName
      * @param string $attribute
      * @return string
      */
-    public function generateListField($attribute)
+    public function generateListField($menuName,$attribute)
     {
-        return "<el-table-column :label=\"\$t('".$this->controllerID.".".$attribute."')\" prop=\"".$attribute."\" sortable=\"custom\" align=\"center\">
+        return "<el-table-column :label=\"\$t('".$menuName.".".$attribute."')\" prop=\"".$attribute."\" sortable=\"custom\" align=\"center\">
                 <template slot-scope=\"props\">
                     <span>{{ props.row.".$attribute." }}</span>
                 </template>
@@ -120,17 +124,18 @@ class Generator extends YiiGenerator
 
     /**
      * Generates code for table colume
+     * @param string $menuName
      * @param string $attribute
      * @return string
      */
-    public function generateDialogField($attribute)
+    public function generateDialogField($menuName,$attribute)
     {
         if($attribute == 'id'){
             return "<el-form-item label=\"ID\" label-width=\"100px\" v-show=\"false\" prop=\"id\">
                     <el-input v-model=\"formDialogModel.id\" autocomplete=\"off\" readonly=\"readonly\"></el-input>
                 </el-form-item>";
         }else{
-            return "<el-form-item :label=\"\$t('".$this->controllerID.".".$attribute."')\" label-width=\"100px\" prop=\"".$attribute."\">
+            return "<el-form-item :label=\"\$t('".$menuName.".".$attribute."')\" label-width=\"100px\" prop=\"".$attribute."\">
                     <el-input v-model=\"formDialogModel.".$attribute."\" autocomplete=\"off\"></el-input>
                 </el-form-item>";
         }

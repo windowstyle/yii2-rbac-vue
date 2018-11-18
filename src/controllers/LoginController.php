@@ -48,7 +48,7 @@ class LoginController extends BaseController
         $user = new UserModel();
         $user->username = 'admin';
         $user->generateAuthKey();
-        $user->setPassword('admin123');
+        $user->setPassword('admin');
         $user->email = 'admin@admin.com';
         $user->save();
 

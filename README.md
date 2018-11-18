@@ -89,12 +89,12 @@ php yii migrate --migrationPath=@yii/rbac/migrations
     'response' => [
         'on beforeSend' => function ($event) {
             $response = $event->sender;
-            /* @var $response \yii\web\Response */
             if ($response->statusCode != 200) {
                 $response->statusCode = 200;
-                $response->data = [
+                $response->format     = yii\web\Response::FORMAT_JSON;
+                $response->data       = [
                     'code'    => \wyrbac\models\RespCode::ERROR_EXCEPTION,
-                    'data'    => 'Exception: ' . \yii\helpers\ArrayHelper::getValue($response->data,'message','Unknow Error!')
+                    'data'    => $response->data
                 ];
             }
         }
@@ -123,22 +123,28 @@ php yii migrate --migrationPath=@yii/rbac/migrations
 ],
 ```
 
-3、修改backend\controllers\SiteController，仅保留error与index操作，其他都删除，使后台可以直接跳转到前端首页
+3、修改backend\controllers\SiteController，仅保留error与index操作，其他都删除
 
 ```php
-public function actionIndex()
+class SiteController extends Controller
 {
-    header('Location:'.Url::to(['/index.html'],true));exit; // 跳转到前端页面
+    public function actionError(){
+        // 仅当YII_DEBUG为false时有效
+        $response = Yii::$app->getResponse();
+        $response->data = 'Server Error.';
+        return $response;
+    }
+    public function actionIndex(){
+        header('Location:'.Url::to(['/index.html'],true));exit; // 跳转到前端页面
+    }
 }
+
 ```
 
 三、backview的相关配置
 
-1、下载nodejs，并设置npm为国内的源
+1、下载nodejs
 > windows环境的下载地址：http://nodejs.cn/download/
-```
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-```
 
 2、部署backview
 > 从vendor包wyanlord中拷贝backview文件夹到项目的根目录下，与backend处于同一级别
@@ -154,7 +160,7 @@ module.exports = {
 
 4、开始运行
 ```
-cnpm install
+npm install --registry=https://registry.npm.taobao.org
 ```
 
 ```
@@ -169,3 +175,20 @@ npm run build
 > 访问接口API域名地址http://localhost/wyrbac/login/register-default 路由来创建管理员admin，同时会创建对应的角色
 
 > 默认为admin/admin，权限为superadmin
+
+> 给角色配置路由权限的时候，如果增删了一些路由，要点击上面的‘更新路由’按钮进行路由刷新
+
+6、使用gii生成crud前端
+
+> model的生成还是Yii2官方的操作
+
+> crud的生成如下
+
+```
+backend\models\TestModel // 这个是model
+backend\controllers\TestController // 这个是控制器
+backview\src\views // 这个是vue文件的文件夹目录路径
+```
+
+> 生成好了以后，需要在router里按照system路由的配置方法来配置你的路由，并添加到index.js里
+

@@ -2,7 +2,9 @@
 
 /* @var $generator wyrbac\crud\Generator */
 
-$controllerName = $generator->getControllerID();
+$controllerID = $generator->getControllerID();
+
+$controllerAlias = preg_replace_callback('/\-+([a-z])/',function($matches){return strtoupper($matches[1]);},$controllerID);
 
 ?>
 <template>
@@ -13,9 +15,9 @@ $controllerName = $generator->getControllerID();
 $count = 0;
 foreach ($generator->getColumnNames() as $attribute) {
     if (++$count < 6) {
-        echo "            " . $generator->generateSearchField($attribute) . "\n\n";
+        echo "            " . $generator->generateSearchField($controllerAlias,$attribute) . "\n\n";
     } else {
-        echo "            <!-- " . $generator->generateSearchField($attribute) . " -->\n\n";
+        echo "            <!-- " . $generator->generateSearchField($controllerAlias,$attribute) . " -->\n\n";
     }
 }
 ?>
@@ -35,9 +37,9 @@ foreach ($generator->getColumnNames() as $attribute) {
 $count = 0;
 foreach ($generator->getColumnNames() as $attribute) {
     if (++$count < 6) {
-        echo "            " . $generator->generateListField($attribute) . "\n\n";
+        echo "            " . $generator->generateListField($controllerAlias,$attribute) . "\n\n";
     } else {
-        echo "            <!-- " . $generator->generateListField($attribute) . " -->\n\n";
+        echo "            <!-- " . $generator->generateListField($controllerAlias,$attribute) . " -->\n\n";
     }
 }
 ?>
@@ -57,15 +59,15 @@ foreach ($generator->getColumnNames() as $attribute) {
 
         <!-- 编辑框 -->
 
-        <el-dialog :title="formDialogType == 'create' ? $t('<?=$controllerName ?>.create<?=ucfirst($controllerName) ?>') : $t('<?=$controllerName ?>.update<?=ucfirst($controllerName) ?>')" :visible.sync="formDialogVisible">
+        <el-dialog :title="formDialogType == 'create' ? $t('<?=$controllerAlias ?>.create<?=ucfirst($controllerAlias) ?>') : $t('<?=$controllerAlias ?>.update<?=ucfirst($controllerAlias) ?>')" :visible.sync="formDialogVisible">
             <el-form ref="formDialogModel" v-loading="formDialogLoading" :model="formDialogModel" :rules="formDialogRule" status-icon>
 <?php
 $count = 0;
 foreach ($generator->getColumnNames() as $attribute) {
     if (++$count < 6) {
-        echo "                " . $generator->generateDialogField($attribute) . "\n\n";
+        echo "                " . $generator->generateDialogField($controllerAlias,$attribute) . "\n\n";
     } else {
-        echo "                <!-- " . $generator->generateDialogField($attribute) . " -->\n\n";
+        echo "                <!-- " . $generator->generateDialogField($controllerAlias,$attribute) . " -->\n\n";
     }
 }
 ?>
@@ -82,7 +84,7 @@ foreach ($generator->getColumnNames() as $attribute) {
     import request from '@/utils/request'
 
     export default {
-        name: '<?=$controllerName ?>', //Todo: 修改名称
+        name: '<?=$controllerAlias ?>', //Todo: 修改名称
         data() {
             return {
                 // 状态相关
@@ -145,7 +147,7 @@ foreach ($generator->getColumnNames() as $name) {
                 this.searchLoading = true;
                 // Todo:修改获取列表的api函数
                 request({
-                    url: '/<?=$controllerName ?>/index',
+                    url: '/<?=$controllerID ?>/index',
                     method: 'get',
                     params: this.searchModel
                 }).then(response => {
@@ -188,7 +190,7 @@ foreach ($generator->getColumnNames() as $name) {
                     this.searchLoading = true;
                     // Todo:修改删除的api函数
                     request({
-                        url: '/<?=$controllerName ?>/delete',
+                        url: '/<?=$controllerID ?>/delete',
                         method: 'post',
                         data: {ids}
                     }).then(() => {
@@ -232,7 +234,7 @@ foreach ($generator->getColumnNames() as $name) {
 
                         // Todo:修改保存的api函数
                         request({
-                            url: '/<?=$controllerName ?>/save',
+                            url: '/<?=$controllerID ?>/save',
                             method: 'post',
                             data: postdata
                         }).then(response => {
