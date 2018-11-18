@@ -166,8 +166,10 @@ npm install --registry=https://registry.npm.taobao.org
 ```
 // 开发环境
 npm run dev
+// 测试环境
+npm run build:test
 // 生产环境
-npm run build
+npm run build:prod
 ```
 
 5、nginx配置如下
