@@ -41,7 +41,7 @@ module.exports = {
     index: path.resolve(__dirname, '../../backend/web/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../backend/web/dist'),
+    assetsRoot: path.resolve(__dirname, '../../backend/web'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 

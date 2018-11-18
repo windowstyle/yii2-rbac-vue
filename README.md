@@ -150,7 +150,7 @@ class SiteController extends Controller
 > 从vendor包wyanlord中拷贝backview文件夹到项目的根目录下，与backend处于同一级别
 
 3、接口域名配置
-> 路径为backview/config目录下的dev.env.js和prod.env.js
+> 路径为backview/config目录下的dev.env.js、test.env.js和prod.env.js
 ```js
 module.exports = {
     NODE_ENV: '"development"',
