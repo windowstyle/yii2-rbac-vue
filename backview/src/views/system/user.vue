@@ -128,7 +128,6 @@
 </template>
 
 <script>
-    import request from '@/utils/request'
     import {parseTime} from '@/utils'
 
 	export default {
@@ -195,11 +194,7 @@
 		methods: {
 			OnSearchList() {
 				this.searchLoading = true
-                request({
-                    url: '/wyrbac/user/index',
-                    method: 'get',
-                    params: this.searchModel
-                }).then(response => {
+                this.$axios.get('/wyrbac/user/index',{params: this.searchModel}).then(response => {
 					this.searchList = response.data.items;
 					this.searchTotal = parseInt(response.data.total);
 
@@ -243,11 +238,7 @@
 					}
 
 					this.searchLoading = true;
-                    request({
-                        url: '/wyrbac/user/delete',
-                        method: 'post',
-                        data: {ids}
-                    }).then(() => {
+                    this.$axios.post('/wyrbac/user/delete',{ids}).then(() => {
 						this.OnSearchList();
 					}).catch(error => {
 						this.$message.error(error.message);
@@ -286,11 +277,7 @@
 							postdata[k] = this.formDialogModel[k];
 						});
 
-                        request({
-                            url: '/wyrbac/user/save',
-                            method: 'post',
-                            data: postdata
-                        }).then(response => {
+                        this.$axios.post('/wyrbac/user/save',postdata).then(response => {
                             this.formDialogVisible = false;
                             this.formDialogLoading = false;
                             this.OnSearchList();
@@ -314,11 +301,7 @@
             },
 			OnSubmitRoleDialog() {
                 this.roleDialogLoading = true;
-                request({
-                    url: '/wyrbac/user/save-role',
-                    method: 'post',
-                    data: this.roleDialogModel
-                }).then(response => {
+                this.$axios.post('/wyrbac/user/save-role',this.roleDialogModel).then(response => {
 					this.roleDialogLoading = false;
 					this.roleDialogVisible = false;
 					this.OnSearchList();

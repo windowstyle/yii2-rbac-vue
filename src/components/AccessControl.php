@@ -22,8 +22,7 @@ class AccessControl extends ActionFilter
         if(Yii::$app->user->identity->username == 'admin') return true;
 
         if(!Yii::$app->user->can('/'.Yii::$app->requestedRoute)){
-            $content = json_encode(['code' => RespCode::ERROR_AUTH,'data' => 'No operation authority.']);
-            Yii::$app->getResponse()->content = $content;
+            Yii::$app->getResponse()->data = ['code' => RespCode::ERROR_AUTH,'data' => 'No operation authority.'];
             return false;
         }
 

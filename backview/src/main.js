@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 
 import App from './App'
 import router from './router'
+import axios from './utils/request'
 import {store,i18n} from './resources'
 
 import 'element-ui/lib/theme-chalk/index.css'
@@ -17,6 +18,8 @@ import './utils/permission'
 Vue.use(Element, {size: Cookies.get('size') || 'medium', i18n: (key, value) => i18n.t(key, value)})
 
 Vue.config.productionTip = false
+
+Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
 new Vue({

@@ -170,7 +170,40 @@ npm run dev
 npm run build
 ```
 
-5、创建管理员账号
+5、nginx配置如下
+
+```
+server {
+   listen 80;
+
+   server_name localhost;
+   root        /home/php/myyii2/backend/web;
+   index       index.php index.html;
+   
+   charset utf-8;
+   client_max_body_size 128M;
+   sendfile off;
+   
+   add_header 'Access-Control-Allow-Origin' '*';
+   add_header 'Access-Control-Allow-Methods' 'GET,POST';
+   add_header 'Access-Control-Allow-Headers' 'content-type,X-Token';
+   
+   if ($request ~ ^OPTIONS.*){
+        return 200;
+   }
+
+   location / {
+       try_files $uri $uri/ /index.php$is_args$args;
+   }
+   location ~ \.php$ {
+       include fastcgi_params;
+       fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+       fastcgi_pass 127.0.0.1:9000;
+   }
+}
+```
+
+6、创建管理员账号
 
 > 访问接口API域名地址http://localhost/wyrbac/login/register-default 路由来创建管理员admin，同时会创建对应的角色
 
@@ -178,7 +211,7 @@ npm run build
 
 > 给角色配置路由权限的时候，如果增删了一些路由，要点击上面的‘更新路由’按钮进行路由刷新
 
-6、使用gii生成crud前端
+7、使用gii生成crud前端
 
 > model的生成还是Yii2官方的操作
 

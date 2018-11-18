@@ -3,7 +3,10 @@ import {Message, MessageBox} from 'element-ui'
 import {store} from '../resources'
 
 // create an axios instance
-const service = axios.create({baseURL: process.env.BASE_API, timeout: 20000})
+const service = axios.create({baseURL: process.env.BASE_API, timeout: 6000})
+
+service.defaults.retry = 2;
+service.defaults.retryDelay = 1000;
 
 // request interceptor
 service.interceptors.request.use(
@@ -38,13 +41,20 @@ service.interceptors.response.use(
         return Promise.reject(new Error(res.data));
     },
     error => {
-        console.log('Error : ' + error) // for debug
-        Message({
-            message: 'Network Failed!',
-            type: 'error',
-            duration: 5 * 1000
-        })
-        return Promise.reject(error)
+        var config = error.config;
+        if(!config || !config.retry) return Promise.reject(error);
+
+        config.retryCount = config.retryCount || 0;
+        if(config.retryCount >= config.retry) return Promise.reject(new Error('Bad network,request timeout!'));
+        config.retryCount += 1;
+
+        var backoff = new Promise(function(resolve) {
+            setTimeout(function() {resolve();}, config.retryDelay || 1);
+        });
+
+        return backoff.then(function() {
+            return service(config);
+        });
     }
 )
 

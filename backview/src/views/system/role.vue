@@ -99,7 +99,6 @@
 </template>
 
 <script>
-    import request from '@/utils/request'
     import {parseTime} from '@/utils'
 
 	export default {
@@ -155,11 +154,7 @@
 		methods: {
 			OnSearchList() {
 				this.searchLoading = true
-                request({
-                    url: '/wyrbac/auth/index',
-                    method: 'get',
-                    params: this.searchModel
-                }).then(response => {
+                this.$axios.get('/wyrbac/auth/index',{params: this.searchModel}).then(response => {
 					this.searchList = response.data.items
 					this.searchTotal = parseInt(response.data.total)
 
@@ -204,11 +199,7 @@
 					}
 
 					this.searchLoading = true;
-                    request({
-                        url: '/wyrbac/auth/delete',
-                        method: 'post',
-                        data: names
-                    }).then(() => {
+                    this.$axios.post('/wyrbac/auth/delete',{names}).then(() => {
 						this.OnSearchList();
 					}).catch(error => {
 						this.$message.error(error.message);
@@ -247,11 +238,7 @@
 							postdata[k] = this.formDialogModel[k];
 						});
 
-                        request({
-                            url: '/wyrbac/auth/save',
-                            method: 'post',
-                            data: postdata
-                        }).then(response => {
+                        this.$axios.post('/wyrbac/auth/save',postdata).then(response => {
 							this.formDialogVisible = false;
 							this.formDialogLoading = false;
 							this.OnSearchList();
@@ -267,10 +254,7 @@
 			},
 			OnRefreshRoutes() {
 				this.searchLoading = true;
-                request({
-                    url: '/wyrbac/auth/refresh-routes',
-                    method: 'get'
-                }).then(() => {
+                this.$axios.get('/wyrbac/auth/refresh-routes',{params: {}}).then(() => {
 					this.OnSearchList();
 					this.$message.success('Refresh Success!');
                 }).catch(error => {
@@ -287,11 +271,7 @@
             },
 			OnSubmitPermissionDialog() {
 				this.permissionDialogLoading = true;
-                request({
-                    url: '/wyrbac/auth/save-permissions',
-                    method: 'post',
-                    data: this.permissionDialogModel
-                }).then(() => {
+                this.$axios.post('/wyrbac/auth/save-permissions',this.permissionDialogModel).then(() => {
 				    this.permissionDialogVisible = false;
 					this.permissionDialogLoading = false;
 					this.OnSearchList();

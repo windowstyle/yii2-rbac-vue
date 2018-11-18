@@ -81,8 +81,6 @@ foreach ($generator->getColumnNames() as $attribute) {
 </template>
 
 <script>
-    import request from '@/utils/request'
-
     export default {
         name: '<?=$controllerAlias ?>', //Todo: 修改名称
         data() {
@@ -146,11 +144,7 @@ foreach ($generator->getColumnNames() as $name) {
             OnSearchList() {
                 this.searchLoading = true;
                 // Todo:修改获取列表的api函数
-                request({
-                    url: '/<?=$controllerID ?>/index',
-                    method: 'get',
-                    params: this.searchModel
-                }).then(response => {
+                this.$axios.get('/<?=$controllerID ?>/index',{params: this.searchModel}).then(response => {
                     this.searchList = response.data.items;
                     this.searchTotal = parseInt(response.data.total);
 
@@ -189,11 +183,7 @@ foreach ($generator->getColumnNames() as $name) {
 
                     this.searchLoading = true;
                     // Todo:修改删除的api函数
-                    request({
-                        url: '/<?=$controllerID ?>/delete',
-                        method: 'post',
-                        data: {ids}
-                    }).then(() => {
+                    this.$axios.post('/<?=$controllerID ?>/delete',{ids}).then(() => {
                         this.OnSearchList();
                     }).catch(error => {
                         this.$message.error(error.message);
@@ -233,11 +223,7 @@ foreach ($generator->getColumnNames() as $name) {
                         });
 
                         // Todo:修改保存的api函数
-                        request({
-                            url: '/<?=$controllerID ?>/save',
-                            method: 'post',
-                            data: postdata
-                        }).then(response => {
+                        this.$axios.post('/<?=$controllerID ?>/save',postdata).then(response => {
                             this.formDialogVisible = false;
                             this.formDialogLoading = false;
                             this.OnSearchList();

@@ -8,7 +8,7 @@
 
 namespace wyrbac\components;
 
-
+use Yii;
 use wyrbac\models\RespCode;
 use yii\filters\auth\HttpHeaderAuth;
 
@@ -18,7 +18,6 @@ class AuthToken extends HttpHeaderAuth
     public $header = 'X-Token';
 
     public function handleFailure($response){
-        $content = json_encode(['code' => RespCode::ERROR_TOKEN,'data' => 'Auth Token Failed.']);
-        \Yii::$app->getResponse()->content = $content;
+        Yii::$app->getResponse()->data = ['code' => RespCode::ERROR_TOKEN,'data' => 'Auth Token Failed.'];
     }
 }

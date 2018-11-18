@@ -1,5 +1,5 @@
 import {getToken, setToken, removeToken} from '@/utils/auth'
-import request from '@/utils/request'
+import axios from '@/utils/request'
 
 const user = {
 	state: {
@@ -38,11 +38,7 @@ const user = {
 		LoginByUsername({commit}, userInfo) {
 		    let data = {username: userInfo.username.trim(),password: userInfo.password}
 			return new Promise((resolve, reject) => {
-                request({
-                    url: '/wyrbac/login/login',
-                    method: 'post',
-                    data
-                }).then(response => {
+                axios.post('/wyrbac/login/login',data).then(response => {
 					const data = response.data
 					commit('SET_TOKEN', data.token)
 					setToken(response.data.token)
@@ -56,10 +52,7 @@ const user = {
 		// 获取用户信息
 		GetUserInfo({commit, state}) {
 			return new Promise((resolve, reject) => {
-                request({
-                    url: '/wyrbac/login/user-info',
-                    method: 'get'
-                }).then(response => {
+                axios.get('/wyrbac/login/user-info').then(response => {
 					if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
 						reject('error')
 					}
@@ -82,10 +75,7 @@ const user = {
 		// 登出
 		LogOut({commit, state}) {
 			return new Promise((resolve, reject) => {
-                request({
-                    url: '/wyrbac/login/logout',
-                    method: 'post'
-                }).then(() => {
+                axios.get('/wyrbac/login/logout').then(() => {
 					commit('SET_TOKEN', '')
 					commit('SET_ROLES', [])
 					removeToken()
@@ -110,10 +100,7 @@ const user = {
 			return new Promise(resolve => {
 				commit('SET_TOKEN', role)
 				setToken(role)
-                request({
-                    url: '/wyrbac/login/user-info',
-                    method: 'get'
-                }).then(response => {
+                axios.get('/wyrbac/login/user-info').then(response => {
 					const data = response.data
 					commit('SET_ROLES', data.roles)
 					commit('SET_NAME', data.name)
