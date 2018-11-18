@@ -6,8 +6,11 @@
 1、修改composer.json
 
 > 在文件末尾修改repositories为国内源，并忽略前端资源的包
+
 > 删除require-dev中的所有包，仅保留gii即可
+
 > 在require末尾添加wyanlord/yii2-rbac-vue包
+
 > 最后使用composer来更新这些包
 
 ```json
