@@ -3,10 +3,25 @@
 一、下载Yii2框架
 下载地址：https://github.com/yiisoft/yii2-app-advanced/releases
 
-1、修改composer.json，在文件末尾修改repositories为国内源，并忽略前端资源的包，然后`composer install`
+1、修改composer.json
+
+> 在文件末尾修改repositories为国内源，并忽略前端资源的包
+> 删除require-dev中的所有包，仅保留gii即可
+> 在require末尾添加wyanlord/yii2-rbac-vue包
+> 最后使用composer来更新这些包
 
 ```json
 {
+  "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "~2.0.14",
+        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "wyanlord/yii2-rbac-vue": "^1.5"
+    },
+    "require-dev": {
+        "yiisoft/yii2-gii": "~2.0.0"
+    },
     "repositories": [
         {
             "type": "composer",
