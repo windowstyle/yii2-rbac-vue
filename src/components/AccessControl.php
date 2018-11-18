@@ -6,11 +6,11 @@
  * Time: 23:20
  */
 
-namespace wyvue\components;
+namespace wyrbac\components;
 
 use Yii;
 use yii\base\ActionFilter;
-use wyvue\models\RespCode;
+use wyrbac\models\RespCode;
 
 class AccessControl extends ActionFilter
 {

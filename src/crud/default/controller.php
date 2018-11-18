@@ -5,7 +5,7 @@
 
 use yii\helpers\StringHelper;
 
-/* @var $generator wyvue\Generator */
+/* @var $generator wyrbac\crud\Generator */
 
 $controllerClass  = StringHelper::basename($generator->controllerClass);
 $modelClass       = StringHelper::basename($generator->modelClass);
@@ -18,7 +18,7 @@ namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>
 
 use Yii;
 use <?= ltrim($generator->modelClass, '\\') ?>;
-use wyvue\models\RespCode;
+use wyrbac\models\RespCode;
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 
 /**

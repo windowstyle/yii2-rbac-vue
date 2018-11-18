@@ -1,6 +1,6 @@
 <?php
 
-namespace wyvue\models;
+namespace wyrbac\models;
 
 use Yii;
 use yii\base\Event;

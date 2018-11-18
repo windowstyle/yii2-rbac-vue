@@ -196,7 +196,7 @@
 			OnSearchList() {
 				this.searchLoading = true
                 request({
-                    url: '/wyvue/user/index',
+                    url: '/wyrbac/user/index',
                     method: 'get',
                     params: this.searchModel
                 }).then(response => {
@@ -244,7 +244,7 @@
 
 					this.searchLoading = true;
                     request({
-                        url: '/wyvue/user/delete',
+                        url: '/wyrbac/user/delete',
                         method: 'post',
                         data: {ids}
                     }).then(() => {
@@ -287,7 +287,7 @@
 						});
 
                         request({
-                            url: '/wyvue/user/save',
+                            url: '/wyrbac/user/save',
                             method: 'post',
                             data: postdata
                         }).then(response => {
@@ -315,7 +315,7 @@
 			OnSubmitRoleDialog() {
                 this.roleDialogLoading = true;
                 request({
-                    url: '/wyvue/user/save-role',
+                    url: '/wyrbac/user/save-role',
                     method: 'post',
                     data: this.roleDialogModel
                 }).then(response => {

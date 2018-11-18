@@ -7,14 +7,14 @@
  * Time: 13:42
  */
 
-namespace wyvue\controllers;
+namespace wyrbac\controllers;
 
 use Yii;
 use yii\web\Response;
 use yii\web\Controller;
 use yii\filters\RateLimiter;
-use wyvue\components\AuthToken;
-use wyvue\components\AccessControl;
+use wyrbac\components\AuthToken;
+use wyrbac\components\AccessControl;
 
 class BaseController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-/* @var $generator wyvue\crud\Generator */
+/* @var $generator wyrbac\crud\Generator */
 
 $controllerName = $generator->getControllerID();
 

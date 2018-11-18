@@ -1,12 +1,12 @@
 <?php
 
-namespace wyvue\controllers;
+namespace wyrbac\controllers;
 
-use wyvue\models\AuthItem;
-use wyvue\models\RespCode;
+use wyrbac\models\AuthItem;
+use wyrbac\models\RespCode;
 use Yii;
 use common\models\LoginForm;
-use wyvue\models\UserModel;
+use wyrbac\models\UserModel;
 use yii\rbac\Item;
 
 class LoginController extends BaseController

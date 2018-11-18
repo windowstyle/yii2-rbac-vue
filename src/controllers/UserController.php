@@ -1,9 +1,9 @@
 <?php
 
-namespace wyvue\controllers;
+namespace wyrbac\controllers;
 
-use wyvue\models\RespCode;
-use wyvue\models\UserModel;
+use wyrbac\models\RespCode;
+use wyrbac\models\UserModel;
 use Yii;
 
 class UserController extends BaseController

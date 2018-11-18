@@ -39,7 +39,7 @@ const user = {
 		    let data = {username: userInfo.username.trim(),password: userInfo.password}
 			return new Promise((resolve, reject) => {
                 request({
-                    url: '/wyvue/login/login',
+                    url: '/wyrbac/login/login',
                     method: 'post',
                     data
                 }).then(response => {
@@ -57,7 +57,7 @@ const user = {
 		GetUserInfo({commit, state}) {
 			return new Promise((resolve, reject) => {
                 request({
-                    url: '/wyvue/login/user-info',
+                    url: '/wyrbac/login/user-info',
                     method: 'get'
                 }).then(response => {
 					if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
@@ -83,7 +83,7 @@ const user = {
 		LogOut({commit, state}) {
 			return new Promise((resolve, reject) => {
                 request({
-                    url: '/wyvue/login/logout',
+                    url: '/wyrbac/login/logout',
                     method: 'post'
                 }).then(() => {
 					commit('SET_TOKEN', '')
@@ -111,7 +111,7 @@ const user = {
 				commit('SET_TOKEN', role)
 				setToken(role)
                 request({
-                    url: '/wyvue/login/user-info',
+                    url: '/wyrbac/login/user-info',
                     method: 'get'
                 }).then(response => {
 					const data = response.data

@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace wyvue\crud;
+namespace wyrbac\crud;
 
 use Yii;
 use yii\db\Schema;
@@ -16,8 +16,8 @@ class Generator extends YiiGenerator
 {
     public $modelClass = 'backend\models\*Model';
     public $controllerClass = 'backend\controllers\*Controller';
-    public $baseControllerClass = 'wyvue\controllers\BaseController';
-    public $viewPath = 'vueview\src\views';
+    public $baseControllerClass = 'wyrbac\controllers\BaseController';
+    public $viewPath = 'backview\src\views';
     public $templates = ['default' => '@vendor/wyanlord/yii2-rbac-vue/src/crud/default'];
 
     /**
@@ -33,7 +33,7 @@ class Generator extends YiiGenerator
                 and class name should be in CamelCase with an uppercase first letter. Make sure the class
                 is using the same namespace as specified by your application\'s controllerNamespace property.',
             'viewPath' => 'Specify the directory for storing the view scripts for the controller.
-                <code>/vueview/src/views/post</code>. If not set, it will default to <code>/vueview/src/views</code>'
+                <code>/backview/src/views/post</code>. If not set, it will default to <code>/backview/src/views</code>'
         ]);
     }
 
@@ -142,7 +142,7 @@ class Generator extends YiiGenerator
     public function getViewPath()
     {
         if (empty($this->viewPath)) {
-            return dirname(Yii::getAlias('@backend')) . '/vueview/src/views';
+            return dirname(Yii::getAlias('@backend')) . '/backview/src/views';
         }
 
         return dirname(Yii::getAlias('@backend')) . '/' . trim(str_replace('\\', '/', $this->viewPath),'/');

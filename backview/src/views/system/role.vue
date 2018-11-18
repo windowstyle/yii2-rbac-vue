@@ -156,7 +156,7 @@
 			OnSearchList() {
 				this.searchLoading = true
                 request({
-                    url: '/wyvue/auth/index',
+                    url: '/wyrbac/auth/index',
                     method: 'get',
                     params: this.searchModel
                 }).then(response => {
@@ -205,7 +205,7 @@
 
 					this.searchLoading = true;
                     request({
-                        url: '/wyvue/auth/delete',
+                        url: '/wyrbac/auth/delete',
                         method: 'post',
                         data: names
                     }).then(() => {
@@ -248,7 +248,7 @@
 						});
 
                         request({
-                            url: '/wyvue/auth/save',
+                            url: '/wyrbac/auth/save',
                             method: 'post',
                             data: postdata
                         }).then(response => {
@@ -268,7 +268,7 @@
 			OnRefreshRoutes() {
 				this.searchLoading = true;
                 request({
-                    url: '/wyvue/auth/refresh-routes',
+                    url: '/wyrbac/auth/refresh-routes',
                     method: 'get'
                 }).then(() => {
 					this.OnSearchList();
@@ -288,7 +288,7 @@
 			OnSubmitPermissionDialog() {
 				this.permissionDialogLoading = true;
                 request({
-                    url: '/wyvue/auth/save-permissions',
+                    url: '/wyrbac/auth/save-permissions',
                     method: 'post',
                     data: this.permissionDialogModel
                 }).then(() => {

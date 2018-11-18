@@ -27,8 +27,8 @@
 
 ```php
 'aliases' => [
-    '@bower' => dirname(dirname(__DIR__)) . '/vueview/node_modules',
-    '@npm'   => dirname(dirname(__DIR__)) . '/vueview/node_modules',
+    '@bower' => dirname(dirname(__DIR__)) . '/backview/node_modules',
+    '@npm'   => dirname(dirname(__DIR__)) . '/backview/node_modules',
 ]
 ```
 3、修改backend下的gii配置文件，只有开发环境下，并且是gii请求时，才加载该模块，并删除项目自带的debug模块
@@ -38,7 +38,7 @@ if (YII_ENV_DEV && strpos($_SERVER['REQUEST_URI'],'/gii') !== false) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         'generators' => [
-            'crud' => ['class' => 'wyvue\crud\Generator']
+            'crud' => ['class' => 'wyrbac\crud\Generator']
         ],
     ];
 }
@@ -58,10 +58,10 @@ php yii migrate --migrationPath=@yii/rbac/migrations
 ```
 
 2、后台backend的main.php配置文件如下
-> wyvue\Module模块名必须定义为wyvue，否则需要修改前端固定的Api请求地址
+> wyrbac\Module模块名必须定义为wyrbac，否则需要修改前端固定的Api请求地址
 
 ```php
-'modules' => ['wyvue' => 'wyvue\Module'],
+'modules' => ['wyrbac' => 'wyrbac\Module'],
 'components' => [
     'request' => [
         'enableCsrfValidation'   => false,
@@ -75,14 +75,14 @@ php yii migrate --migrationPath=@yii/rbac/migrations
             if ($response->statusCode != 200) {
                 $response->statusCode = 200;
                 $response->data = [
-                    'code'    => \wyvue\models\RespCode::ERROR_EXCEPTION,
+                    'code'    => \wyrbac\models\RespCode::ERROR_EXCEPTION,
                     'data'    => 'Exception: ' . \yii\helpers\ArrayHelper::getValue($response->data,'message','Unknow Error!')
                 ];
             }
         }
     ],
     'user' => [
-        'identityClass'   => 'wyvue\models\UserModel',
+        'identityClass'   => 'wyrbac\models\UserModel',
         'enableAutoLogin' => false,
         'enableSession'   => false,
     ],
@@ -105,7 +105,7 @@ php yii migrate --migrationPath=@yii/rbac/migrations
 ],
 ```
 
-3、修改backend\controllers\SiteController，使后台可以直接跳转到前端首页
+3、修改backend\controllers\SiteController，仅保留error与index操作，其他都删除，使后台可以直接跳转到前端首页
 
 ```php
 public function actionIndex()
@@ -114,7 +114,7 @@ public function actionIndex()
 }
 ```
 
-三、vueview的相关配置
+三、backview的相关配置
 
 1、下载nodejs，并设置npm为国内的源
 > windows环境的下载地址：http://nodejs.cn/download/
@@ -122,11 +122,11 @@ public function actionIndex()
 npm install -g cnpm --registry=https://registry.npm.taobao.org
 ```
 
-2、部署vueview
-> 从vendor包wyanlord中拷贝vueview文件夹到项目的根目录下，与backend处于同一级别
+2、部署backview
+> 从vendor包wyanlord中拷贝backview文件夹到项目的根目录下，与backend处于同一级别
 
 3、接口域名配置
-> 路径为vueview/config目录下的dev.env.js和prod.env.js
+> 路径为backview/config目录下的dev.env.js和prod.env.js
 ```js
 module.exports = {
     NODE_ENV: '"development"',
@@ -148,6 +148,6 @@ npm run build
 
 5、创建管理员账号
 
-> 访问接口API域名地址http://localhost/wyvue/login/register-default 路由来创建管理员admin，同时会创建对应的角色
+> 访问接口API域名地址http://localhost/wyrbac/login/register-default 路由来创建管理员admin，同时会创建对应的角色
 
 > 默认为admin/admin，权限为superadmin

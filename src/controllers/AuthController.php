@@ -1,13 +1,13 @@
 <?php
 
-namespace wyvue\controllers;
+namespace wyrbac\controllers;
 
-use wyvue\models\RespCode;
+use wyrbac\models\RespCode;
 use Yii;
 use yii\db\Query;
 use yii\rbac\DbManager;
 use yii\rbac\Item;
-use wyvue\models\AuthItem;
+use wyrbac\models\AuthItem;
 use yii\rbac\Permission;
 
 /**

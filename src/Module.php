@@ -7,11 +7,11 @@
  * Time: 17:54
  */
 
-namespace wyvue;
+namespace wyrbac;
 
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'wyvue\controllers';
+    public $controllerNamespace = 'wyrbac\controllers';
 
     public function init()
     {

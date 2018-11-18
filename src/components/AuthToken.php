@@ -6,10 +6,10 @@
  * Time: 13:31
  */
 
-namespace wyvue\components;
+namespace wyrbac\components;
 
 
-use wyvue\models\RespCode;
+use wyrbac\models\RespCode;
 use yii\filters\auth\HttpHeaderAuth;
 
 class AuthToken extends HttpHeaderAuth

@@ -6,7 +6,7 @@
  * Time: 17:25
  */
 
-namespace wyvue\models;
+namespace wyrbac\models;
 
 
 class RespCode

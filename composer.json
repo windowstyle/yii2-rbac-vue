@@ -3,7 +3,7 @@
     "description": "Yii2 Rbac And Vue",
     "license": "MIT",
     "keywords": ["yii2","rbac","vue"],
-    "version": "1.3.0",
+    "version": "1.4.0",
     "authors": [
         {
             "name": "yan.wang",
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "wyvue\\": "src/"
+            "wyrbac\\": "src/"
         }
     }
 }
