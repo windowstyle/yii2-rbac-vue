@@ -39,11 +39,13 @@ class LoginController extends BaseController
 
         $loginUser->save();
 
-        return ['code' => 1000,'data' => ['token' => $loginUser->getAuthKey()]];
+        return ['code' => RespCode::SUCCESS,'data' => ['token' => $loginUser->getAuthKey()]];
     }
 
     public function actionRegisterDefault(){
-        if(UserModel::findOne(['username' => 'admin'])) die('Admin Exists!');
+        if(UserModel::findOne(['username' => 'admin'])) {
+            return ['code' => RespCode::ERROR_FAILED,'data' => 'User `admin` exists!'];
+        }
 
         $user = new UserModel();
         $user->username = 'admin';
@@ -58,13 +60,13 @@ class LoginController extends BaseController
         $authItem = new AuthItem();
         $authItem->name = 'superadmin';
         $authItem->type = Item::TYPE_ROLE;
-        $authItem->description = '超级管理员';
+        $authItem->description = 'Super Admin';
 
         $authItem->save();
 
         $authManager->assign($authManager->getRole('superadmin'),$user->id);
 
-        die('添加成功');
+        return ['code' => RespCode::SUCCESS,'data' => 'Add user:admin and password:admin success.'];
     }
 
     public function actionUserInfo(){
@@ -84,6 +86,6 @@ class LoginController extends BaseController
 
         $loginUser->save();
 
-        return ['code' => 1000,'data' => []];
+        return ['code' => RespCode::SUCCESS,'data' => []];
     }
 }
