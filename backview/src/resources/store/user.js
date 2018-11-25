@@ -7,7 +7,7 @@ const user = {
 		name: '',
 		status: '',
 		token: getToken(),
-		avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+		avatar: 'static/avatar.gif',
 		introduction: '',
 		roles: [],
 		setting: {

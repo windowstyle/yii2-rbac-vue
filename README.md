@@ -16,14 +16,14 @@
 ```json
 {
   "require": {
-        "php": ">=5.4.0",
-        "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
-        "wyanlord/yii2-rbac-vue": "^1.5"
+        "php": ">=7.0",
+        "yiisoft/yii2": "2.0.15.1",
+        "yiisoft/yii2-bootstrap": "2.0.8",
+        "yiisoft/yii2-swiftmailer": "2.1.2",
+        "wyanlord/yii2-rbac-vue": "*"
     },
     "require-dev": {
-        "yiisoft/yii2-gii": "~2.0.0"
+        "yiisoft/yii2-gii": "2.0.7"
     },
     "repositories": [
         {

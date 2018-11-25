@@ -11,8 +11,7 @@
 
             <el-dropdown class="avatar-container right-menu-item" trigger="click">
                 <div class="avatar-wrapper">
-                    <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-                    <i class="el-icon-caret-bottom"/>
+                    <img :src="avatar" class="user-avatar">
                 </div>
                 <el-dropdown-menu slot="dropdown">
                     <router-link to="/">
@@ -107,8 +106,8 @@
                     margin-top: 5px;
                     position: relative;
                     .user-avatar {
-                        width: 40px;
-                        height: 40px;
+                        width: 36px;
+                        height: 36px;
                         border-radius: 10px;
                     }
                     .el-icon-caret-bottom {
