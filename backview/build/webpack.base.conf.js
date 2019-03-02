@@ -85,5 +85,13 @@ module.exports = {
         net: 'empty',
         tls: 'empty',
         child_process: 'empty'
+    },
+    externals: {
+        'vue': 'Vue',
+        'vuex': 'Vuex',
+        'vue-router': 'VueRouter',
+        'vue-i18n': 'VueI18n',
+        'axios': 'axios',
+        'element-ui': 'ELEMENT',
     }
-}
+};

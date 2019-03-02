@@ -9,7 +9,6 @@ import router from './router'
 import axios from './utils/request'
 import {store,i18n} from './resources'
 
-import 'element-ui/lib/theme-chalk/index.css'
 import 'normalize.css/normalize.css'
 import './resources/styles/index.scss'
 
