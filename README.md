@@ -1,5 +1,7 @@
 ### Yii2前后端分离
 
+#### 最新更新了-》减少包的体积
+
 一、下载Yii2框架
 下载地址：https://github.com/yiisoft/yii2-app-advanced/releases
 
