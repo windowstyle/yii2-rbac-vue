@@ -92,4 +92,16 @@ class UserModel extends User
     {
         return static::findOne(['auth_key' => $token, 'status' => self::STATUS_ACTIVE]);
     }
+
+    /**
+     * @param $model
+     *
+     * @return mixed
+     */
+    public function load($model){
+        // 解决修改密码失败的bug
+        if(!empty($model['UserModel']['password'])) $model['UserModel']['password_hash'] = '';
+
+        return parent::load($model);
+    }
 }
