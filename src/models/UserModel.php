@@ -94,14 +94,15 @@ class UserModel extends User
     }
 
     /**
-     * @param $model
+     * @param $data
+     * @param $formName
      *
      * @return mixed
      */
-    public function load($model){
+    public function load($data, $formName = null){
         // 解决修改密码失败的bug
-        if(!empty($model['UserModel']['password'])) $model['UserModel']['password_hash'] = '';
+        if(!empty($data['UserModel']['password'])) $data['UserModel']['password_hash'] = '';
 
-        return parent::load($model);
+        return parent::load($data, $formName);
     }
 }
