@@ -1,10 +1,12 @@
 /** When your routing table is too long, you can split it into small modules**/
 
-import Layout from '@/views/layout/Layout'
+import LayoutVue from '@/views/layout/Layout'
+import UserVue from '@/views/system/user'
+import RoleVue from '@/views/system/role'
 
 const rbacRouter = {
 	path: '/system',
-	component: Layout,
+	component: LayoutVue,
 	redirect: '/system/user',
 	name: 'system',
 	meta: {
@@ -15,13 +17,13 @@ const rbacRouter = {
 	children: [
 		{
 			path: 'user',
-			component: () => import('@/views/system/user'),
+			component: UserVue,
 			name: 'systemUser',
 			meta: {title: 'systemUser',icon: 'user',roles: ['superadmin']}
 		},
 		{
 			path: 'role',
-			component: () => import('@/views/system/role'),
+			component: RoleVue,
 			name: 'systemRole',
 			meta: {title: 'systemRole',icon: 'role',roles: ['superadmin']}
 		}

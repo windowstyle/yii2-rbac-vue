@@ -4,7 +4,10 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '../views/layout/Layout'
+import LayoutVue from '../views/layout/Layout'
+import RedirectVue from '@/views/redirect/index'
+import LoginVue from '@/views/login/index'
+import DashboardVue from '@/views/dashboard/index'
 
 /* Router Modules */
 import systemRouter  from './modules/system'
@@ -18,28 +21,28 @@ export const asyncRouterMap = [
 export const constantRouterMap = [
     {
         path: '/redirect',
-        component: Layout,
+        component: LayoutVue,
         hidden: true,
         children: [
             {
                 path: '/redirect/:path*',
-                component: () => import('@/views/redirect/index')
+                component: RedirectVue
             }
         ]
     },
     {
         path: '/login',
-        component: () => import('@/views/login/index'),
+        component: LoginVue,
         hidden: true
     },
     {
         path: '',
-        component: Layout,
+        component: LayoutVue,
         redirect: 'dashboard',
         children: [
             {
                 path: 'dashboard',
-                component: () => import('@/views/dashboard/index'),
+                component: DashboardVue,
                 name: 'Dashboard',
                 meta: {title: 'dashboard', icon: 'dashboard', noCache: true}
             }

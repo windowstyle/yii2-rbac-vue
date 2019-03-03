@@ -188,6 +188,16 @@ server {
    client_max_body_size 128M;
    sendfile off;
    
+   # 开启静态文件压缩
+   gzip on;
+   gzip_min_length 1k;
+   gzip_buffers 4 16k;
+   gzip_http_version 1.0;
+   gzip_comp_level 6;
+   gzip_types text/plan text/xml text/css application/javascript application/x-javascript;
+   gzip_disable "MSIE [1-6]\.";
+   gzip_vary on;
+   
    add_header 'Access-Control-Allow-Origin' '*';
    add_header 'Access-Control-Allow-Methods' 'GET,POST';
    add_header 'Access-Control-Allow-Headers' 'content-type,X-Token';
