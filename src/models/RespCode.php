@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yan.wang5
- * Date: 2018/11/8
- * Time: 17:25
- */
 
 namespace wyrbac\models;
 
