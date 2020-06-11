@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yan.wang
- * Date: 2018/10/4
- * Time: 23:20
- */
-
 namespace wyrbac\components;
 
 use Yii;
