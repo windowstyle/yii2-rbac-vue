@@ -1,11 +1,4 @@
 <?php
-/**
- * Top Secret
- * Created by PhpStorm.
- * User: yan.wang
- * Date: 2018/9/25
- * Time: 17:54
- */
 
 namespace wyrbac;
 
