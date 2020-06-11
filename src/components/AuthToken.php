@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yan.wang5
- * Date: 2018/10/14
- * Time: 13:31
- */
 
 namespace wyrbac\components;
 
